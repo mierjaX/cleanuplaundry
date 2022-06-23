@@ -34,20 +34,13 @@
         <ul class="navbar-nav bg-gradient-success sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/dashboard">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/dashboard/tables">
         
                 <div class="sidebar-brand-text mx-3">Clean Up Laundry</div>
             </a>
 
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
-
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item">
-                <a class="nav-link" href="http://cleanuplaundry.test/dashboard">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
-            </li>
 
             <!-- Nav Item - Tables -->
             <li class="nav-item active">
@@ -75,80 +68,9 @@
             <!-- Main Content -->
             <div id="content">
 
-                <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-                    <!-- Sidebar Toggle (Topbar) -->
-                    <form class="form-inline">
-                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                            <i class="fa fa-bars"></i>
-                        </button>
-                    </form>
-
-                    <!-- Topbar Search -->
-                    <form
-                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                        <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                                aria-label="Search" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">
-                                    <i class="fas fa-search fa-sm"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-
-                    <!-- Topbar Navbar -->
-                    <ul class="navbar-nav ml-auto">
-
-                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-                        <li class="nav-item dropdown no-arrow d-sm-none">
-                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-search fa-fw"></i>
-                            </a>
-
-                        <div class="topbar-divider d-none d-sm-block"></div>
-
-                        <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
-                                <img class="img-profile rounded-circle"
-                                    src="{{ asset("assets/img/undraw_profile.svg") }}">
-                            </a>
-                            <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profile
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Settings
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Activity Log
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
-                                </a>
-                            </div>
-                        </li>
-
-                    </ul>
-
-                </nav>
-                <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
+                <div class="container-fluid mt-3">
 
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">Tabel Data Pesanan</h1>
@@ -165,7 +87,7 @@
                                             <th>Alamat</th>
                                             <th>Kontak</th>
                                             <th>Jenis Layanan</th>
-                                            <th class="form-group col-sm-2">Berat (Kg)</th>
+                                            <th>Berat (Kg)</th>
                                             <th>Tanggal Pesan</th>
                                             <th>Harga</th>
                                             <th>Status</th>
@@ -173,22 +95,42 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @foreach ($pesanan as $item)                          
                                         <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>Mulyosari</td>
-                                            <td>14045</td>
-                                            <td>Cuci Kering</td>
+                                            <form action="{{ url('/dashboard/tables', $item->id) }}" method="post">
+                                            @csrf
+                                            @method('put')    
+                                            <td>{{ $item->nama }}</td>
+                                            <td>{{ $item->alamat }}</td>
+                                            <td>{{ $item->kontak }}</td>
+                                            <td>{{ $item->jenisLayanan }}</td>
                                             <td>
+                                                @if($item->berat==null)
                                                 <div class="form-group col-sm-12">
-                                                    <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="Berat...(Kg)">
+                                                    <input type="text" name="berat" class="form-control" id="exampleFormControlInput1" placeholder="Berat...(Kg)">
                                                 </div>
+                                                @else
+                                                {{ $item->berat }}
+                                                @endif
                                             </td>
-                                            <td>2011/04/25</td>
-                                            <td>Rp.54.000</td>
+                                            <td>{{ $item->created_at }}</td>
+                                            <td>
+                                                @if($item->harga==null)
+                                                <div class="input-group mb-3">
+                                                    <input type="text" name="harga" class="form-control" placeholder="Harga...(Rp)">
+                                                </div>
+                                                @else
+                                                {{ $item->harga }}
+                                                @endif
+                                            </td>
                                             <td>
                                                 <div class="form-group">
-                                                <select class="form-control" id="exampleFormControlSelect1">
+                                                <select class="form-control" name="status" id="exampleFormControlSelect1">
+                                                  @if ($item->status == null)
                                                   <option>Dipesan</option>
+                                                  @else
+                                                  <option value="" disabled selected>{{$item->status}}</option>
+                                                  @endif
                                                   <option>Diambil</option>
                                                   <option>Diproses</option>
                                                   <option>Dikirim</option>
@@ -197,360 +139,13 @@
                                               </div>
                                             </td>
                                             <td>
+                                                <button type="submit" class="btn btn-info">Save</button>
+                                                <br>
                                                 <button type="button" class="btn btn-danger">Delete</button>
                                             </td>
+                                        </form>
                                         </tr>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>Mulyosari</td>
-                                            <td>14045</td>
-                                            <td>Cuci Kering</td>
-                                            <td>
-                                                <div class="form-group col-sm-12">
-                                                    <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="Berat...(Kg)">
-                                                </div>
-                                            </td>
-                                            <td>2011/04/25</td>
-                                            <td>Rp.54.000</td>
-                                            <td>
-                                                <div class="form-group">
-                                                <select class="form-control" id="exampleFormControlSelect1">
-                                                  <option>Dipesan</option>
-                                                  <option>Diambil</option>
-                                                  <option>Diproses</option>
-                                                  <option>Dikirim</option>
-                                                  <option>Selesai</option>
-                                                </select>
-                                              </div>
-                                            </td>
-                                            <td>
-                                                <button type="button" class="btn btn-danger">Delete</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>Mulyosari</td>
-                                            <td>14045</td>
-                                            <td>Cuci Kering</td>
-                                            <td>
-                                                <div class="form-group col-sm-12">
-                                                    <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="Berat...(Kg)">
-                                                </div>
-                                            </td>
-                                            <td>2011/04/25</td>
-                                            <td>Rp.54.000</td>
-                                            <td>
-                                                <div class="form-group">
-                                                <select class="form-control" id="exampleFormControlSelect1">
-                                                  <option>Dipesan</option>
-                                                  <option>Diambil</option>
-                                                  <option>Diproses</option>
-                                                  <option>Dikirim</option>
-                                                  <option>Selesai</option>
-                                                </select>
-                                              </div>
-                                            </td>
-                                            <td>
-                                                <button type="button" class="btn btn-danger">Delete</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>Mulyosari</td>
-                                            <td>14045</td>
-                                            <td>Cuci Kering</td>
-                                            <td>
-                                                <div class="form-group col-sm-12">
-                                                    <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="Berat...(Kg)">
-                                                </div>
-                                            </td>
-                                            <td>2011/04/25</td>
-                                            <td>Rp.54.000</td>
-                                            <td>
-                                                <div class="form-group">
-                                                <select class="form-control" id="exampleFormControlSelect1">
-                                                  <option>Dipesan</option>
-                                                  <option>Diambil</option>
-                                                  <option>Diproses</option>
-                                                  <option>Dikirim</option>
-                                                  <option>Selesai</option>
-                                                </select>
-                                              </div>
-                                            </td>
-                                            <td>
-                                                <button type="button" class="btn btn-danger">Delete</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>Mulyosari</td>
-                                            <td>14045</td>
-                                            <td>Cuci Kering</td>
-                                            <td>
-                                                <div class="form-group col-sm-12">
-                                                    <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="Berat...(Kg)">
-                                                </div>
-                                            </td>
-                                            <td>2011/04/25</td>
-                                            <td>Rp.54.000</td>
-                                            <td>
-                                                <div class="form-group">
-                                                <select class="form-control" id="exampleFormControlSelect1">
-                                                  <option>Dipesan</option>
-                                                  <option>Diambil</option>
-                                                  <option>Diproses</option>
-                                                  <option>Dikirim</option>
-                                                  <option>Selesai</option>
-                                                </select>
-                                              </div>
-                                            </td>
-                                            <td>
-                                                <button type="button" class="btn btn-danger">Delete</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>Mulyosari</td>
-                                            <td>14045</td>
-                                            <td>Cuci Kering</td>
-                                            <td>
-                                                <div class="form-group col-sm-12">
-                                                    <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="Berat...(Kg)">
-                                                </div>
-                                            </td>
-                                            <td>2011/04/25</td>
-                                            <td>Rp.54.000</td>
-                                            <td>
-                                                <div class="form-group">
-                                                <select class="form-control" id="exampleFormControlSelect1">
-                                                  <option>Dipesan</option>
-                                                  <option>Diambil</option>
-                                                  <option>Diproses</option>
-                                                  <option>Dikirim</option>
-                                                  <option>Selesai</option>
-                                                </select>
-                                              </div>
-                                            </td>
-                                            <td>
-                                                <button type="button" class="btn btn-danger">Delete</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>Mulyosari</td>
-                                            <td>14045</td>
-                                            <td>Cuci Kering</td>
-                                            <td>
-                                                <div class="form-group col-sm-12">
-                                                    <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="Berat...(Kg)">
-                                                </div>
-                                            </td>
-                                            <td>2011/04/25</td>
-                                            <td>Rp.54.000</td>
-                                            <td>
-                                                <div class="form-group">
-                                                <select class="form-control" id="exampleFormControlSelect1">
-                                                  <option>Dipesan</option>
-                                                  <option>Diambil</option>
-                                                  <option>Diproses</option>
-                                                  <option>Dikirim</option>
-                                                  <option>Selesai</option>
-                                                </select>
-                                              </div>
-                                            </td>
-                                            <td>
-                                                <button type="button" class="btn btn-danger">Delete</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>Mulyosari</td>
-                                            <td>14045</td>
-                                            <td>Cuci Kering</td>
-                                            <td>
-                                                <div class="form-group col-sm-12">
-                                                    <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="Berat...(Kg)">
-                                                </div>
-                                            </td>
-                                            <td>2011/04/25</td>
-                                            <td>Rp.54.000</td>
-                                            <td>
-                                                <div class="form-group">
-                                                <select class="form-control" id="exampleFormControlSelect1">
-                                                  <option>Dipesan</option>
-                                                  <option>Diambil</option>
-                                                  <option>Diproses</option>
-                                                  <option>Dikirim</option>
-                                                  <option>Selesai</option>
-                                                </select>
-                                              </div>
-                                            </td>
-                                            <td>
-                                                <button type="button" class="btn btn-danger">Delete</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>Mulyosari</td>
-                                            <td>14045</td>
-                                            <td>Cuci Kering</td>
-                                            <td>
-                                                <div class="form-group col-sm-12">
-                                                    <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="Berat...(Kg)">
-                                                </div>
-                                            </td>
-                                            <td>2011/04/25</td>
-                                            <td>Rp.54.000</td>
-                                            <td>
-                                                <div class="form-group">
-                                                <select class="form-control" id="exampleFormControlSelect1">
-                                                  <option>Dipesan</option>
-                                                  <option>Diambil</option>
-                                                  <option>Diproses</option>
-                                                  <option>Dikirim</option>
-                                                  <option>Selesai</option>
-                                                </select>
-                                              </div>
-                                            </td>
-                                            <td>
-                                                <button type="button" class="btn btn-danger">Delete</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>Mulyosari</td>
-                                            <td>14045</td>
-                                            <td>Cuci Kering</td>
-                                            <td>
-                                                <div class="form-group col-sm-12">
-                                                    <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="Berat...(Kg)">
-                                                </div>
-                                            </td>
-                                            <td>2011/04/25</td>
-                                            <td>Rp.54.000</td>
-                                            <td>
-                                                <div class="form-group">
-                                                <select class="form-control" id="exampleFormControlSelect1">
-                                                  <option>Dipesan</option>
-                                                  <option>Diambil</option>
-                                                  <option>Diproses</option>
-                                                  <option>Dikirim</option>
-                                                  <option>Selesai</option>
-                                                </select>
-                                              </div>
-                                            </td>
-                                            <td>
-                                                <button type="button" class="btn btn-danger">Delete</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>Mulyosari</td>
-                                            <td>14045</td>
-                                            <td>Cuci Kering</td>
-                                            <td>
-                                                <div class="form-group col-sm-12">
-                                                    <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="Berat...(Kg)">
-                                                </div>
-                                            </td>
-                                            <td>2011/04/25</td>
-                                            <td>Rp.54.000</td>
-                                            <td>
-                                                <div class="form-group">
-                                                <select class="form-control" id="exampleFormControlSelect1">
-                                                  <option>Dipesan</option>
-                                                  <option>Diambil</option>
-                                                  <option>Diproses</option>
-                                                  <option>Dikirim</option>
-                                                  <option>Selesai</option>
-                                                </select>
-                                              </div>
-                                            </td>
-                                            <td>
-                                                <button type="button" class="btn btn-danger">Delete</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>Mulyosari</td>
-                                            <td>14045</td>
-                                            <td>Cuci Kering</td>
-                                            <td>
-                                                <div class="form-group col-sm-12">
-                                                    <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="Berat...(Kg)">
-                                                </div>
-                                            </td>
-                                            <td>2011/04/25</td>
-                                            <td>Rp.54.000</td>
-                                            <td>
-                                                <div class="form-group">
-                                                <select class="form-control" id="exampleFormControlSelect1">
-                                                  <option>Dipesan</option>
-                                                  <option>Diambil</option>
-                                                  <option>Diproses</option>
-                                                  <option>Dikirim</option>
-                                                  <option>Selesai</option>
-                                                </select>
-                                              </div>
-                                            </td>
-                                            <td>
-                                                <button type="button" class="btn btn-danger">Delete</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>Mulyosari</td>
-                                            <td>14045</td>
-                                            <td>Cuci Kering</td>
-                                            <td>
-                                                <div class="form-group col-sm-12">
-                                                    <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="Berat...(Kg)">
-                                                </div>
-                                            </td>
-                                            <td>2011/04/25</td>
-                                            <td>Rp.54.000</td>
-                                            <td>
-                                                <div class="form-group">
-                                                <select class="form-control" id="exampleFormControlSelect1">
-                                                  <option>Dipesan</option>
-                                                  <option>Diambil</option>
-                                                  <option>Diproses</option>
-                                                  <option>Dikirim</option>
-                                                  <option>Selesai</option>
-                                                </select>
-                                              </div>
-                                            </td>
-                                            <td>
-                                                <button type="button" class="btn btn-danger">Delete</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>Mulyosari</td>
-                                            <td>14045</td>
-                                            <td>Cuci Kering</td>
-                                            <td>
-                                                <div class="form-group col-sm-12">
-                                                    <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="Berat...(Kg)">
-                                                </div>
-                                            </td>
-                                            <td>2011/04/25</td>
-                                            <td>Rp.54.000</td>
-                                            <td>
-                                                <div class="form-group">
-                                                <select class="form-control" id="exampleFormControlSelect1">
-                                                  <option>Dipesan</option>
-                                                  <option>Diambil</option>
-                                                  <option>Diproses</option>
-                                                  <option>Dikirim</option>
-                                                  <option>Selesai</option>
-                                                </select>
-                                              </div>
-                                            </td>
-                                            <td>
-                                                <button type="button" class="btn btn-danger">Delete</button>
-                                            </td>
-                                        </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

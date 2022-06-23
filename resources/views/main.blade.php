@@ -171,45 +171,35 @@
                 <!-- Contact Section Form-->
                 <div class="row justify-content-center">
                     <div class="col-lg-8 col-xl-7">
-                        <form id="contactForm" data-sb-form-api-token="API_TOKEN">
+                        <form id="contactForm" data-sb-form-api-token="API_TOKEN" action="{{ url('/pesan') }}" method="post">
+                            @csrf
                             <!-- Nama input-->
                             <div class="form-floating mb-3">
-                                <input class="form-control" id="name" type="text" placeholder="Masukkan nama..." data-sb-validations="required" />
+                                <input class="form-control" name="nama" id="name" type="text" placeholder="Masukkan nama..." data-sb-validations="required" />
                                 <label for="name">Nama</label>
                                 <div class="invalid-feedback" data-sb-feedback="name:required">Nama wajib diisi.</div>
                             </div>
                             <!-- Alamat input-->
                             <div class="form-floating mb-3">
-                                <input class="form-control" id="alamat" type="text" placeholder="Jalan..." data-sb-validations="required" />
+                                <input class="form-control" name="alamat" id="alamat" type="text" placeholder="Jalan..." data-sb-validations="required" />
                                 <label for="alamat">Alamat</label>
                                 <div class="invalid-feedback" data-sb-feedback="alamat:required">Alamat wajib diisi..</div>
                             </div>
                             <!-- Kontak input-->
                             <div class="form-floating mb-3">
-                                <input class="form-control" id="phone" type="tel" placeholder="(123) 456-7890" data-sb-validations="required" />
+                                <input class="form-control" name="kontak" id="phone" type="tel" placeholder="(123) 456-7890" data-sb-validations="required" />
                                 <label for="phone">Kontak</label>
                                 <div class="invalid-feedback" data-sb-feedback="phone:required">Kontak wajib diisi.</div>
                             </div>
                             <!-- Jenis layanan input-->
                             <div class="form-floating mb-3">
-                                <input class="form-control" id="layanan" type="text" placeholder="Pilih layanan..." data-sb-validations="required" />
+                                <input class="form-control" name="jenisLayanan" id="layanan" type="text" placeholder="Pilih layanan..." data-sb-validations="required" />
                                 <label for="name">Jenis Layanan</label>
                                 <div class="invalid-feedback" data-sb-feedback="layanan:required">Jenis Layanan wajib diisi.</div>
                             </div>
                            
-            
-                            <!-- has successfully submitted-->
-                            <div class="d-none" id="submitSuccessMessage">
-                                <div class="text-center mb-3">
-                                    <div class="fw-bolder">Form submission successful!</div>
-                                   
-                                </div>
-                            </div>
-                            
-                            <!-- an error submitting the form-->
-                            <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
                             <!-- Submit Button-->
-                            <button class="btn btn-primary btn-xl disabled" id="submitButton" type="submit">Kirim</button>
+                            <button class="btn btn-primary btn-xl" id="submitButton" type="submit">Kirim</button>
                         </form>
                     </div>
                 </div>
