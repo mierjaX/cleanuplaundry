@@ -196,18 +196,13 @@
                                 <label for="name">Jenis Layanan</label>
                                 <div class="invalid-feedback" data-sb-feedback="layanan:required">Jenis Layanan wajib diisi.</div>
                             </div>
-                            <!-- Berat input-->
-                            <div class="form-floating mb-3">
-                                <input class="form-control" id="layanan" type="text" placeholder="Pilih layanan..." data-sb-validations="required" />
-                                <label for="name">Berat</label>
-                                <div class="invalid-feedback" data-sb-feedback="layanan:required">Masukkan perkiraan berat baju disini.</div>
-                            </div>
+                           
             
                             <!-- has successfully submitted-->
                             <div class="d-none" id="submitSuccessMessage">
                                 <div class="text-center mb-3">
                                     <div class="fw-bolder">Form submission successful!</div>
-                                    <a href="/detail">Detail Pesanan</a>
+                                   
                                 </div>
                             </div>
                             
