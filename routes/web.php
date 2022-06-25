@@ -31,8 +31,8 @@ Route::post('/logout', [LoginController::class, 'logout']);
 Route::get('/signup', [RegisterController::class, 'index'])->Middleware('guest');
 Route::post('/signup', [RegisterController::class, 'store']);
 
-Route::get('/dashboard/tables', [PesananController::class, 'show'])->Middleware('auth');
-Route::put('/dashboard/tables/{id}', [PesananController::class, 'adminInput'])->Middleware('auth');
+Route::get('/dashboard/tables', [PesananController::class, 'show'])->Middleware('cekadmin:admin');
+Route::put('/dashboard/tables/{id}', [PesananController::class, 'adminInput'])->Middleware('cekadmin:admin');
 
 Route::get('/dashboard/testi', function () {
     return view('tabletesti',[
