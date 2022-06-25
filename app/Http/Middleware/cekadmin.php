@@ -16,7 +16,7 @@ class cekadmin
      */
     public function handle(Request $request, Closure $next, ...$admin)
     {
-        if (in_array($request->user()->isadmin,$admin)){
+        if (in_array($request->user()->isAdmin,$admin)){
             return$next($request);
         }
         return redirect('/');
