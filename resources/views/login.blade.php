@@ -82,7 +82,7 @@
                                                     @enderror
                                             </div>
                                             <div class="form-group pb-3">
-                                                <input type="password" name="password" class="form-control form-control-user"
+                                                <input type="password" name="password" class="form-control form-control-user" 
                                                     id="exampleInputPassword" placeholder="Masukkan password disini..." required>
                                             </div>
                                             <button type="submit" class="btn btn-primary btn-user btn-block">

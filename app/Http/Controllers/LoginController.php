@@ -23,6 +23,9 @@ class LoginController extends Controller
             $request->session()->regenerate();
             return redirect()->intended('/dashboard/tables');
         }
+        else{
+            return redirect()->intended('/login');
+        }
     }
     public function logout(Request $request){
         Auth::logout();

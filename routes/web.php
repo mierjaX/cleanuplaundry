@@ -49,5 +49,7 @@ Route::get('/detail', function () {
 Route::resource('/formtesti', Testicont::class);
 
 Route::get('/testimoni', function () {
-    return view('testimoni');
+    return view('testimoni',[
+            "testimoni" => testimoni::all()
+    ]);
 });

@@ -76,6 +76,27 @@
                     </a>
                 </div>
             </div>
+            <div> 
+                @foreach ($testimoni as $item)
+            
+             
+                <div class="modal-body text-center pb-5">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                
+                                <!-- Portfolio Modal - Image-->
+                                <img src="{{ asset('storage/kumpulan-testimoni/'.$item->gambar) }}" alt="foto testimoni" style="width:200px">
+                                <!-- Portfolio Modal - Text-->
+                                <h2 class="mb-3">{{ $item->nama}}</h2>
+                                <h4 class="mb-4">{{ $item->keterangan}}</h4>
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
         </section>
         
         <!-- Footer-->
