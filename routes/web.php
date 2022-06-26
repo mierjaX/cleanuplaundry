@@ -47,7 +47,7 @@ Route::get('/detail', function () {
     return view('detail');
 });
 
-Route::resource('/formtesti', Testicont::class);
+Route::resource('/formtesti', Testicont::class)->Middleware('auth');
 
 Route::get('/testimoni', function () {
     return view('testimoni',[
