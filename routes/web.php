@@ -33,6 +33,7 @@ Route::post('/signup', [RegisterController::class, 'store']);
 
 Route::get('/dashboard/tables', [PesananController::class, 'show'])->Middleware('cekadmin:admin');
 Route::put('/dashboard/tables/{id}', [PesananController::class, 'adminInput'])->Middleware('cekadmin:admin');
+Route::delete('/dashboard/tables/{id}',[PesananController::class,'destroy']);
 
 Route::get('/dashboard/testi', function () {
     return view('tabletesti',[

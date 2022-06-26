@@ -88,8 +88,8 @@
                                 <!-- Portfolio Modal - Image-->
                                 <img src="{{ asset('storage/kumpulan-testimoni/'.$item->gambar) }}" alt="foto testimoni" style="width:200px">
                                 <!-- Portfolio Modal - Text-->
-                                <h2 class="mb-3">{{ $item->nama}}</h2>
-                                <h4 class="mb-4">{{ $item->keterangan}}</h4>
+                                <h5 class="mb-3">{{ $item->nama}}</h5>
+                                <p class="mb-4">{{ $item->keterangan}}</p>
                                
                             </div>
                         </div>
@@ -122,7 +122,7 @@
                     <div class="col-lg-4">
                         <h4 class="text-uppercase mb-4">Admin Section</h4>
                         <p class="lead mb-0">
-                            <a href="">Dashboard</a>
+                            <a href="/dashboard/tables">Dashboard</a>
                             
                         </p>
                     </div>

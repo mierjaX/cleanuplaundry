@@ -111,8 +111,10 @@ class PesananController extends Controller
      * @param  \App\Models\Pesanan  $pesanan
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pesanan $pesanan)
+    public function destroy($id)
     {
-        //
+        $gambarhapus = Pesanan::where('id',$id)->first();
+        Pesanan::where('id',$id)->delete();
+        return redirect('/dashboard/tables')->with('success','pesanan telah dihapus telah dihapus');
     }
 }

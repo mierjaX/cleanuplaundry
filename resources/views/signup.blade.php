@@ -128,7 +128,7 @@
                     <div class="col-lg-4">
                         <h4 class="text-uppercase mb-4">Admin Section</h4>
                         <p class="lead mb-0">
-                            <a href="">Dashboard</a>
+                            <a href="/dashboard/tables">Dashboard</a>
                             
                         </p>
                     </div>
