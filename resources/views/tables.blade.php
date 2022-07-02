@@ -139,9 +139,16 @@
                                               </div>
                                             </td>
                                             <td>
-                                                <button type="submit" class="btn btn-info">Save</button>
-                                                <br>
-                                                <button type="button" class="btn btn-danger">Delete</button>
+                                               <form action="/dashboard/tables/{{ $item->id }}" method="post">
+                                                    @method('put')
+                                                    @csrf
+                                                    <button class="btn btn-info" onclick="return confirm('Pesanan ini akan diupdate, apakah anda yakin ?')">Save</button>
+                                                </form>
+                                                <form action="/dashboard/tables/{{ $item->id }}" method="post">
+                                                    @method('delete')
+                                                    @csrf
+                                                    <button class="btn btn-danger" onclick="return confirm('Pesanan ini akan dihapus, apakah anda yakin ?')">Delete</button>
+                                                </form>
                                             </td>
                                         </form>
                                         </tr>
