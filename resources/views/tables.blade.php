@@ -139,7 +139,11 @@
                                               </div>
                                             </td>
                                             <td>
-                                    
+                                                <form action="/dashboard/tables/{{ $item->id }}" method="post">
+                                                    @method('put')
+                                                    @csrf
+                                                    <button class="btn btn-info" onclick="return confirm('Pesanan ini akan diupdate, apakah anda yakin ?')">Save</button>
+                                                </form>
                                                 <form action="/dashboard/tables/{{ $item->id }}" method="post">
                                                     @method('delete')
                                                     @csrf
